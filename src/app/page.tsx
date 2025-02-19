@@ -1,18 +1,16 @@
 "use client";
 
-import { RootState } from "@/lib/store";
-import { useSelector } from "react-redux";
 import { Introduction } from "./components/intro/Introduction";
-import { Games } from "./components/Games";
+import { Games } from "./components/games/Games";
+import { useUsername } from "./hooks/useUsername";
 
 // check state
-// - if user not onboarded, show intro page
-// - else, show games page
+// - show games page
 //    - the last game played
 //    - or default to rock paper scissors (rps)
 
 export default function Home() {
-  const username = useSelector((state: RootState) => state.user.name);
+  const username = useUsername();
 
-  return username ? <Games username={username} /> : <Introduction />;
+  return username ? <Games /> : <Introduction />;
 }
