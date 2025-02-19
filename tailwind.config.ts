@@ -11,7 +11,15 @@ export default {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        cream: "#FFFDF4",
+        lemon: "#FFFB00",
+        lime: "#00FF11",
+        blood: "#D31C1B",
+        gray: "#626262"
       },
+      fontFamily: {
+        kode: ['var(--font-kode_mono)'],
+      }
     },
   },
   plugins: [],
