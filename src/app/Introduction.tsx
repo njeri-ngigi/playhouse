@@ -1,6 +1,6 @@
 "use client";
 
-import { setValue } from "@/lib/features/user/userSlice";
+import { registerPlayer } from "@/lib/features/user/userSlice";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 
@@ -12,7 +12,7 @@ export function Introduction() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (username) {
-      dispatch(setValue(username));
+      dispatch(registerPlayer(username));
     }
   };
 

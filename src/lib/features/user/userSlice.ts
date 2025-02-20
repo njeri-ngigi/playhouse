@@ -12,12 +12,15 @@ const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    setValue: (state, action: PayloadAction<string>) => {
+    registerPlayer: (state, action: PayloadAction<string>) => {
       state.name = action.payload;
+    },
+    logoutPlayer: (state) => {
+      state.name = "";
     },
   }
 })
 
-export const { setValue } = userSlice.actions
+export const { registerPlayer, logoutPlayer } = userSlice.actions
 
 export const userReducer = userSlice.reducer;
