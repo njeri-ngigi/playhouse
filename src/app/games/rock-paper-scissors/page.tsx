@@ -2,15 +2,8 @@
 import { ComputerPlay } from "./ComputerPlay";
 import { useState } from "react";
 import { UserPlay } from "./UserPlay";
-
-interface IGameInfo {
-  round: number;
-  userSelection: number;
-  computerSelection: number;
-  winState: string;
-  userScore: number;
-  computerScore: number;
-}
+import { IGameInfo } from "./types";
+import { determineWinner } from "./utils";
 
 /**
  * Rock = 0
@@ -57,40 +50,18 @@ export default function RockPaperScissors() {
     }, countDownTime);
   };
 
-  /**
-   * if both user and computer pick the same number, its a tie
-   * winner is determine if:
-   * - rock beats scissors
-   * - scissors beats paper
-   * - paper beats rock
-   */
-  const determineWinner = (
+  const selectWinner = (
     newUserSelection: number,
     newComputerSelection: number
   ) => {
-    if (newUserSelection === newComputerSelection) {
-      setGameData((prev) => ({ ...prev, winState: "Tie" }));
-      return;
-    }
+    const newGameData = determineWinner({
+      userSelection: newUserSelection,
+      computerSelection: newComputerSelection,
+      userScore: gameData.userScore,
+      computerScore: gameData.userScore,
+    });
 
-    const computerWins =
-      (newUserSelection === 0 && newComputerSelection === 1) ||
-      (newUserSelection === 1 && newComputerSelection === 2) ||
-      (newUserSelection === 2 && newComputerSelection === 0);
-
-    if (computerWins) {
-      setGameData((prev) => ({
-        ...prev,
-        winState: "You lose!",
-        computerScore: prev.computerScore + 1,
-      }));
-    } else {
-      setGameData((prev) => ({
-        ...prev,
-        winState: "You win!",
-        userScore: prev.userScore + 1,
-      }));
-    }
+    setGameData((prev) => ({ ...prev, ...newGameData }));
   };
 
   const handleUserSelection = (selection: number) => {
@@ -101,7 +72,7 @@ export default function RockPaperScissors() {
       userSelection: selection,
       computerSelection: newComputerSelection,
     }));
-    determineWinner(selection, newComputerSelection);
+    selectWinner(selection, newComputerSelection);
     startCountDownAndResetRound();
   };
 

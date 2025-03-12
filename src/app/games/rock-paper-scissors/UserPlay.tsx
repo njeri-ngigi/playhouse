@@ -1,10 +1,9 @@
 import { choices } from "./Choices";
+import { IGameInfo } from "./types";
 
-interface UserPlayProps {
-  userScore: number;
+type UserPlayProps = Pick<IGameInfo, "userScore" | "userSelection"> & {
   handleUserSelection: (selection: number) => void;
-  userSelection: number;
-}
+};
 
 export function UserPlay({
   userScore,

@@ -1,14 +1,10 @@
 import { choices } from "./Choices";
-
-interface ComputerPlayProps {
-  computerSelection: number;
-  computerScore: number;
-}
+import { IGameInfo } from "./types";
 
 export function ComputerPlay({
   computerSelection,
   computerScore,
-}: ComputerPlayProps) {
+}: Pick<IGameInfo, "computerScore" | "computerSelection">) {
   const ComputerSelection = choices[computerSelection];
 
   return (
