@@ -1,4 +1,4 @@
-import { IGameInfo } from "./types";
+import { IGameInfo, Play } from "./types";
 
 /**
  * if both user and computer pick the same number, its a tie
@@ -18,13 +18,17 @@ export function determineWinner(
   }
 
   const computerWins =
-    (userSelection === 0 && computerSelection === 1) ||
-    (userSelection === 1 && computerSelection === 2) ||
-    (userSelection === 2 && computerSelection === 0);
+    (userSelection === Play.Rock && computerSelection === Play.Paper) ||
+    (userSelection === Play.Paper && computerSelection === Play.Scissors) ||
+    (userSelection === Play.Scissors && computerSelection === Play.Rock);
 
   if (computerWins) {
     return { computerScore: computerScore + 1, winState: "You lose!" };
   } else {
     return { userScore: userScore + 1, winState: "You win!" };
   }
+}
+
+export function getRandomSelection() {
+  return Math.floor(Math.random() * 3)
 }

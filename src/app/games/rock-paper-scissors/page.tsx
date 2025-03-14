@@ -2,8 +2,8 @@
 import { ComputerPlay } from "./ComputerPlay";
 import { useState } from "react";
 import { UserPlay } from "./UserPlay";
-import { IGameInfo } from "./types";
-import { determineWinner } from "./utils";
+import { IGameInfo, Play } from "./types";
+import { determineWinner, getRandomSelection } from "./utils";
 
 /**
  * Rock = 0
@@ -13,8 +13,8 @@ import { determineWinner } from "./utils";
 export default function RockPaperScissors() {
   const initialGameData: IGameInfo = {
     round: 1,
-    userSelection: -1,
-    computerSelection: -1,
+    userSelection: Play.Undefined,
+    computerSelection: Play.Undefined,
     winState: "",
     userScore: 0,
     computerScore: 0,
@@ -40,8 +40,8 @@ export default function RockPaperScissors() {
     setTimeout(() => {
       setGameData((prev) => ({
         ...prev,
-        userSelection: -1,
-        computerSelection: -1,
+        userSelection: Play.Undefined,
+        computerSelection: Play.Undefined,
         winState: "",
         round: prev.round + 1,
       }));
@@ -65,8 +65,7 @@ export default function RockPaperScissors() {
   };
 
   const handleUserSelection = (selection: number) => {
-    const newComputerSelection =
-      selection >= 0 ? Math.floor(Math.random() * 3) : -1;
+    const newComputerSelection = getRandomSelection();
     setGameData((prev) => ({
       ...prev,
       userSelection: selection,
@@ -83,8 +82,14 @@ export default function RockPaperScissors() {
   return (
     <div className="flex flex-col items-center justify-center h-[80vh]">
       <div className="flex flex-col items-center h-[100px]">
-        <h1 className="text-xl">Round: {gameData.round}</h1>
-        <div className="mt-4 text-gray">{gameData.winState}</div>
+        <h1 className="text-xl" data-testid="rps-round">
+          Round: {gameData.round}
+        </h1>
+        {gameData.winState && (
+          <div className="mt-4 text-gray" data-testid="rps-win-state">
+            {gameData.winState}
+          </div>
+        )}
       </div>
       <div className="flex items-center">
         <UserPlay
@@ -99,8 +104,11 @@ export default function RockPaperScissors() {
         />
       </div>
       <div className="flex flex-col items-center mt-8">
-        <div className="h-[30px]">{countDown && <div>{countDown}</div>}</div>
+        <div className="h-[30px]">
+          {countDown && <div data-testid="rps-countdown">{countDown}</div>}
+        </div>
         <button
+          data-testid="rps-game-reset"
           className="mt-4 hover:underline text-blood"
           onClick={handleGameReset}
         >
@@ -114,5 +122,7 @@ export default function RockPaperScissors() {
 // TODO:
 // - solve that persistent redux noop error
 // - make it mobile responsive
-// - add tests
-// - do TDD for the other tests
+// - create an architectural diagram for this
+// - CI/CD for this
+// - deploy this somewhere other than vercel?
+//

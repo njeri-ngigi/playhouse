@@ -16,19 +16,24 @@ export function UserPlay({
     <div>
       <div className="flex justify-between mb-1">
         <div>You</div>
-        <div className="mr-2">{userScore}</div>
+        <div className="mr-2" data-testid="rps-user-score">
+          {userScore}
+        </div>
       </div>
       <div>
         <div className="absolute -mt-1.5 -ml-1.5 bg-cream h-[200px] w-[200px] border">
           <div className="h-[200px] w-[200px] flex items-center justify-evenly text-2xl">
             {UserSelection ? (
-              <UserSelection />
+              <div data-testid={`rps-user-selection-${userSelection}`}>
+                <UserSelection />
+              </div>
             ) : (
               choices.map((Choice, idx) => (
                 <button
+                  data-testid="rps-user-choice"
                   key={idx}
                   className="hover:bg-lemon p-2"
-                  onClick={() => handleUserSelection(0)}
+                  onClick={() => handleUserSelection(idx)}
                 >
                   <Choice />
                 </button>
