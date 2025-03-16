@@ -1,4 +1,4 @@
-import { Header } from "./Header";
+import { Header } from "./header/Header";
 
 export default function Games({ children }: { children: React.ReactNode }) {
   return (

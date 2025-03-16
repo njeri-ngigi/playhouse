@@ -15,7 +15,7 @@ describe("determineWinner", () => {
     })
 
     expect(winnerData).toEqual({
-      winState: "Tie"
+      winState: "Tie!"
     })
   })
   

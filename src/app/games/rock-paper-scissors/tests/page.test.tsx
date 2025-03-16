@@ -143,7 +143,7 @@ describe("Rock Paper Scissors", () => {
     test("game draws and game resets", async () => {
       await playAsUser(Play.Paper);
 
-      expect(screen.getByTestId("rps-win-state")).toHaveTextContent("Tie");
+      expect(screen.getByTestId("rps-win-state")).toHaveTextContent("Tie!");
       expect(screen.getByTestId("rps-computer-score")).toHaveTextContent("0");
       expect(screen.getByTestId("rps-user-score")).toHaveTextContent("0");
 

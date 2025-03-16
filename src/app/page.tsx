@@ -6,12 +6,6 @@ import { useUsername } from "./hooks/useUsername";
 import { SplashScreen } from "./games/SplashScreen";
 import { useRouter } from "next/navigation";
 
-// TODO:
-// check state
-// - show games page
-//    - the last game played
-//    - or default to rock paper scissors (rps)
-
 export default function Home() {
   const username = useUsername();
   const router = useRouter();

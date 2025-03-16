@@ -16,7 +16,7 @@ export function Logout() {
   return (
     <button
       onClick={handleLogout}
-      className="mr-8 hover:underline hover:cursor-pointer ml-auto"
+      className="hover:underline hover:cursor-pointer md:ml-4"
     >
       Log out
     </button>

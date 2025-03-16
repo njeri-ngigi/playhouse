@@ -14,7 +14,7 @@ export function determineWinner(
     gameData;
 
   if (userSelection === computerSelection) {
-    return { winState: "Tie" };
+    return { winState: "Tie!" };
   }
 
   const computerWins =

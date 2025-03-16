@@ -17,7 +17,7 @@ export function Introduction() {
   };
 
   return (
-    <div className="font-kode flex w-full h-[100vh] items-center flex-col">
+    <div className="font-kode flex h-[100vh] items-center flex-col">
       <h1 className="top-8 fixed text-xl">PLAY HOUSE</h1>
       <form
         onSubmit={handleSubmit}

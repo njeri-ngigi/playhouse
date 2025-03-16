@@ -23,7 +23,7 @@ export default function RockPaperScissors() {
   const [countDown, setCountDown] = useState<number | undefined>();
 
   /**
-   * Starts a count down for 4 seconds and
+   * Starts a count down for 3 seconds and
    * resets the round after time runs out
    */
   const startCountDownAndResetRound = () => {
@@ -35,8 +35,8 @@ export default function RockPaperScissors() {
       setCountDown(count);
     }, timerIntervalTime);
 
-    // clear the interval and reset round after 4s
-    const countDownTime = 4000;
+    // clear the interval and reset round after 3s
+    const countDownTime = 3000;
     setTimeout(() => {
       setGameData((prev) => ({
         ...prev,
@@ -80,49 +80,45 @@ export default function RockPaperScissors() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-[80vh]">
-      <div className="flex flex-col items-center h-[100px]">
+    <div className="flex flex-col items-center md:justify-evenly justify-evenly h-[80vh]">
+      <div className="flex flex-col md:justify-start justify-center py-2 items-center h-[75px] md:h-[120px] mt-8">
         <h1 className="text-xl" data-testid="rps-round">
           Round: {gameData.round}
         </h1>
+        <div className="mt-2">
+          {countDown && <div data-testid="rps-countdown">{countDown}</div>}
+        </div>
         {gameData.winState && (
-          <div className="mt-4 text-gray" data-testid="rps-win-state">
+          <div className="my-2 text-gray" data-testid="rps-win-state">
             {gameData.winState}
           </div>
         )}
       </div>
-      <div className="flex items-center">
+      <div className="flex items-center flex-col md:flex-row">
         <UserPlay
           userScore={gameData.userScore}
           userSelection={gameData.userSelection}
           handleUserSelection={handleUserSelection}
         />
-        <div className="mx-8">vs</div>
+        <div className="mx-8 my-4"></div>
         <ComputerPlay
           computerScore={gameData.computerScore}
           computerSelection={gameData.computerSelection}
         />
       </div>
-      <div className="flex flex-col items-center mt-8">
-        <div className="h-[30px]">
-          {countDown && <div data-testid="rps-countdown">{countDown}</div>}
-        </div>
-        <button
-          data-testid="rps-game-reset"
-          className="mt-4 hover:underline text-blood"
-          onClick={handleGameReset}
-        >
-          reset this game
-        </button>
-      </div>
+      <button
+        data-testid="rps-game-reset"
+        className="mt-[40px] md:mt-[75px] hover:underline text-blood"
+        onClick={handleGameReset}
+      >
+        reset this game
+      </button>
     </div>
   );
 }
 
 // TODO:
 // - solve that persistent redux noop error
-// - make it mobile responsive
-// - create an architectural diagram for this
 // - CI/CD for this
 // - deploy this somewhere other than vercel?
-//
+// - create an architectural diagram for this

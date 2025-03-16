@@ -3,7 +3,6 @@
 import { useEffect, useMemo, useState } from "react";
 
 export function Footer() {
-  // TODO: add preferred time to persisted state
   const [shouldUse12Hours, setShouldUse12Hours] = useState(true);
   const [now, setNow] = useState(new Date());
 
@@ -35,10 +34,9 @@ export function Footer() {
   }, []);
 
   return (
-    <footer className="fixed bottom-4 left-8 right-8 font-kode font-medium">
-      <div className="flex justify-between flex-col items-center md:flex-row">
+    <footer className="fixed bottom-4 left-6 md:left-8 right-6 md:right-8 text-sm md:text-base font-kode font-medium">
+      <div className="flex justify-between items-center flex-row">
         <button
-          // TODO: use popover instead of title
           title={`Show ${shouldUse12Hours ? 24 : 12} hour clock`}
           onClick={() => setShouldUse12Hours(!shouldUse12Hours)}
         >
