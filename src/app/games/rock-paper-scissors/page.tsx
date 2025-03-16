@@ -134,7 +134,7 @@ export default function RockPaperScissors() {
 }
 
 // TODO:
-// - solve that persistent redux noop error
+// - solve that persistent redux noop error (not yet ☹️)
 // - CI/CD for this
 // - deploy this somewhere other than vercel?
 // - create an architectural diagram for this
