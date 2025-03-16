@@ -21,23 +21,15 @@ export default function RockPaperScissors() {
   };
   const [gameData, setGameData] = useState<IGameInfo>(initialGameData);
   const [countDown, setCountDown] = useState<number | undefined>();
+  const [intervalID, setIntervalID] = useState<NodeJS.Timeout>();
+  const [timeoutID, setTimeoutID] = useState<NodeJS.Timeout>();
 
-  /**
-   * Starts a count down for 3 seconds and
-   * resets the round after time runs out
-   */
-  const startCountDownAndResetRound = () => {
-    let count = 3;
-    setCountDown(count);
-    const timerIntervalTime = 1000;
-    const timerID = setInterval(() => {
-      count -= 1;
-      setCountDown(count);
-    }, timerIntervalTime);
-
-    // clear the interval and reset round after 3s
+  const clearCountDown = (iID: NodeJS.Timeout) => {
     const countDownTime = 3000;
-    setTimeout(() => {
+    const toID = setTimeout(() => {
+      clearInterval(iID);
+      setCountDown(undefined);
+      setIntervalID(undefined);
       setGameData((prev) => ({
         ...prev,
         userSelection: Play.Undefined,
@@ -45,9 +37,27 @@ export default function RockPaperScissors() {
         winState: "",
         round: prev.round + 1,
       }));
-      setCountDown(undefined);
-      clearInterval(timerID);
     }, countDownTime);
+    setTimeoutID(toID);
+  };
+
+  /**
+   * Starts a count down for 3 seconds and
+   * resets the round after time runs out
+   */
+  const startCountDownAndResetRound = async () => {
+    let count = 3;
+    setCountDown(count);
+
+    // set a 1s interval timer to count down
+    const timerIntervalTime = 1000;
+    const iID = setInterval(() => {
+      count -= 1;
+      setCountDown(count);
+    }, timerIntervalTime);
+    setIntervalID(iID);
+
+    clearCountDown(iID);
   };
 
   const selectWinner = (
@@ -76,7 +86,13 @@ export default function RockPaperScissors() {
   };
 
   const handleGameReset = () => {
+    clearInterval(intervalID);
+    clearTimeout(timeoutID);
+
     setGameData(initialGameData);
+    setCountDown(undefined);
+    setIntervalID(undefined);
+    setTimeoutID(undefined);
   };
 
   return (
