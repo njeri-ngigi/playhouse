@@ -1,5 +1,4 @@
 name: Deploy playhouse to GitHub Pages
-name: Deploy portfolio to github pages
 
 permissions:
   contents: read
