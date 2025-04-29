@@ -13,7 +13,7 @@ export default function Home() {
   useEffect(() => {
     if (username) {
       setTimeout(() => {
-        router.replace("/games");
+        router.push("/games");
       }, 5300);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
